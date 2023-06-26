@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define DEBUG(x) std::cerr<<#x<<":"<<x<<std::endl
+#define DEBUG(x) std::cout<<#x<<"\t:\t"<<x<<std::endl
 
 class Solution
 {
@@ -144,19 +144,24 @@ public:
       string token = tmp.substr(i, 3);
       ret+=_base64_helper(token);
     }
-    if(com_num != 0) ret[ret.size() -1] = '=';
+    if(com_num != 0) {
+      for (int i =0 ; i< com_num; i++){
+        ret+='=';
+      }
+    }
     return ret;
   }
   string encoding_bigNum(string formula)
   {
     string ret = mul(formula);
-      DEBUG(ret);
-    ret = decimal_to_binary(ret); // into binary form
-      DEBUG(ret);
-    ret = bin_to_hex(ret); // to hex with little indian
-      DEBUG(ret);
-    ret = base64_encoding(ret);
-      DEBUG(ret);
+    string before = ret ;
+      DEBUG(before);
+    string binary = decimal_to_binary(before); // into binary form
+      DEBUG(binary);
+    string hexidecimal = bin_to_hex(binary); // to hex with little indian
+      DEBUG(hexidecimal);
+    string after_base64_encoding = base64_encoding(hexidecimal);
+      DEBUG(after_base64_encoding);
     return ret;
   }
 };
