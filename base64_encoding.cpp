@@ -79,10 +79,21 @@ public:
       tmp = completion + tmp;
     }
     n = tmp.size();
+    int word_len = 4;
+    int store;
+    string token;
     for(int i = n-byte_len ; i>=0; i-=byte_len){
-      string token = tmp.substr(i, byte_len);
-      int store = 0;
-      for(int j =0 ; j<byte_len; j++){
+      // jump in byte, read in word
+      token = tmp.substr(i, word_len);
+      store = 0;
+      for(int j =0 ; j<word_len; j++){
+        store*=2;
+        if(token[j] == '1') store ++;
+      }
+      ss<<hex<<store;
+      token = tmp.substr(i+word_len, word_len);
+      store = 0;
+      for(int j =0 ; j<word_len; j++){
         store*=2;
         if(token[j] == '1') store ++;
       }
@@ -152,8 +163,8 @@ public:
 
 int main()
 {
-  // string formula = "108713406511 * 137993468292";
-  string formula = "1087134 * 1379934";
+  string formula = "108713406511 * 137993468292";
+  // string formula = "1087134 * 1379934";
   Solution s = Solution();
   cout<<s.encoding_bigNum(formula)<<endl;
   return 0;
