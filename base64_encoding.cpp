@@ -144,8 +144,10 @@ public:
       string token = tmp.substr(i, 3);
       ret+=_base64_helper(token);
     }
+    int com_eq = 4-ret.size()%4;
+    // make '=' padding characters might be added to make the last encoded block contain four Base64 characters
     if(com_num != 0) {
-      for (int i =0 ; i< com_num; i++){
+      for (int i =0 ; i< com_eq; i++){
         ret+='=';
       }
     }
